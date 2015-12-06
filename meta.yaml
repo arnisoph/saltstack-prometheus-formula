@@ -1,0 +1,8 @@
+name: saltstack-prometheus-formula
+source: https://github.com/bechtoldt/saltstack-prometheus-formula
+summary: SaltStack formula to manage Prometheus, a service monitoring system and time series database.
+todo:
+  - add instructions how to use formhelper, add information about it in the formula-docs (dependency), show up alternative?
+  - 'table/ matrix: os/salt compatibility (dedicated file)'
+  - add list of available states
+  - add tests

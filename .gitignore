@@ -1,0 +1,66 @@
+# Compiled source #
+###################
+*.class
+*.com
+*.dll
+*.exe
+*.o
+*.so
+
+# Packages #
+############
+# it's better to unpack these files and commit the raw source
+# git has its own built in compression methods
+*.7z
+*.bzip2
+*.deb
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.rpm
+*.tar
+*.tgz
+*.udeb
+*.war
+*.zip
+
+# Logs and databases #
+######################
+*.log
+*.sql
+*.sqlite
+
+# OS generated files #
+######################
+*.pyc
+*.slsc
+.DS_Store
+.DS_Store?
+.Spotlight-V100
+.Trashes
+._*
+Thumbs.db
+*.pyc
+*.slsc
+.tox/
+ehthumbs.db
+
+# IDEs and editors #
+####################
+*.iml
+*.sw*
+*.tmp
+*~
+.idea
+.netrwhist
+.project
+
+# Development VMs and containers #
+##################################
+*.box
+.vagrant/
+test/.env
+test/.vagrant/
+test/nodes.yaml
