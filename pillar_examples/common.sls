@@ -37,4 +37,12 @@ prometheus:
           # cd /vagrant/shared/misc && wget https://github.com/prometheus/node_exporter/releases/download/0.12.0rc1/node_exporter-0.12.0rc1.linux-amd64.tar.gz
           source: salt://misc/node_exporter-0.12.0rc1.linux-amd64.tar.gz
           source_hash: md5=43d253ea664ea446c6c4a42e03400b30
+    collectd_exporter:
+      cur_version: 0.2.0
+      versions:
+        '0.2.0':
+          # cd /vagrant/shared/misc && wget https://github.com/prometheus/collectd_exporter/releases/download/0.2.0/collectd_exporter-0.2.0.linux-amd64.tar.gz
+          source: salt://misc/collectd_exporter-0.2.0.linux-amd64.tar.gz
+          source_hash: md5=2e43f4431375aae3afee8ad92f9e0970
+
 
