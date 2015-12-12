@@ -7,43 +7,32 @@ include: {{ datamap.sls_include|default(['._user']) }}
 extend: {{ datamap.sls_extend|default({}) }}
 
 
-{% for v_id, version in datamap.server.versions|default({})|dictsort %}
-prometheus_server_version_{{ v_id }}:
+{% for v_id, version in datamap.node_exporter.versions|default({})|dictsort %}
+prometheus_node_exporter_version_{{ v_id }}:
   archive:
     - extracted
-    - name: /srv/prometheus/{{ v_id }}
+    - name: /srv/prometheus-node_exporter/{{ v_id }}
     - source: {{ version.source }}
     - source_hash: {{ version.source_hash }}
     - user: prometheus
     - group: prometheus
     - keep: True
     - archive_format: {{ version.archive_format|default('tar') }}
-
-prometheus_server_{{ v_id }}_config:
-  file:
-    - serialize
-    - name: /srv/prometheus/{{ v_id }}/prometheus-{{ datamap.server.cur_version }}.linux-amd64/prometheus.yaml
-    - user: prometheus
-    - group: prometheus
-    - mode: 640
-    - dataset_pillar: prometheus:lookup:server:versions:{{ v_id }}:config
-    - watch_in:
-      - service: prometheus
 {% endfor %}
 
-prometheus_server_link_current_version:
+prometheus_node_exporter_link_current_version:
   file:
     - symlink
-    - name: /srv/prometheus/current
-    - target: /srv/prometheus/{{ datamap.server.cur_version }}/prometheus-{{ datamap.server.cur_version }}.linux-amd64
+    - name: /srv/prometheus-node_exporter/current
+    - target: /srv/prometheus-node_exporter/{{ datamap.node_exporter.cur_version }}/
     - user: prometheus
     - group: prometheus
 
 {% if salt['grains.get']('init') == 'systemd' %}
-prometheus_server_service_script:
+prometheus_node_exporter_service_script:
   file:
     - managed
-    - name: /etc/systemd/system/prometheus.service
+    - name: /etc/systemd/system/prometheus-node_exporter.service
     - user: root
     - group: root
     - contents: |
@@ -57,14 +46,14 @@ prometheus_server_service_script:
         WorkingDirectory=/srv/prometheus/current
         User=prometheus
         Group=prometheus
-        ExecStart=/srv/prometheus/current/prometheus -config.file=/srv/prometheus/current/prometheus.yaml -log.level info
+        ExecStart=/srv/prometheus-node_exporter/current/node_exporter -log.level info
 
         [Install]
         WantedBy=multi-user.target
 {% endif %}
 
-prometheus_server_service:
+prometheus_node_exporter_service:
   service:
     - running
-    - name: prometheus
+    - name: prometheus-node_exporter
     - enable: True
