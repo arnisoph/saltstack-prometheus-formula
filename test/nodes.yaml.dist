@@ -1,0 +1,28 @@
+---
+defaults:
+  domain: prometheus.local.arnoldbechtoldt.com
+  base_box: bechtoldt/centos-7.0-salt-2015.8.0
+  osfam: rhel
+  synced_folders:
+    # Common folders
+    - src: ../shared/misc
+      dst: /vagrant/shared/misc
+
+    # Salt related folders
+    - src: ../shared/salt/devenv
+      dst: /vagrant/shared/salt/devenv
+    - src: ../../../salt-modules/_modules
+      dst: /vagrant/salt/_modules
+    - src: ../../../salt-modules/_states
+      dst: /vagrant/salt/_states
+  provision:
+    - name: basic
+#    - name: saltstack_install_bootstrap
+    - name: saltstack_formulas
+      formulas:
+        - name: prometheus
+          base_dir: ../..
+    - name: saltstack_config
+    - name: saltstack_services
+nodes:
+  prometheus1: {}
