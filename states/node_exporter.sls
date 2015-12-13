@@ -43,7 +43,7 @@ prometheus_node_exporter_service_script:
         [Service]
         Type=simple
         RemainAfterExit=no
-        WorkingDirectory=/srv/prometheus/current
+        WorkingDirectory=/srv/prometheus-node_exporter/current
         User=prometheus
         Group=prometheus
         ExecStart=/srv/prometheus-node_exporter/current/node_exporter -log.level info
